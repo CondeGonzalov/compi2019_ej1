@@ -345,8 +345,10 @@ public class Scanner {
     }
     static void ReadName(Token t)
     {
-        while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_')
+        char ch_ant=' ';
+        while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_' || (ch >= '0' && ch <= '9'))
         {
+            ch_ant = ch;
             t.str = t.str+ch;
             NextCh();
         }
@@ -393,7 +395,10 @@ public class Scanner {
             }
         else
         {
-            t.kind = Token.IDENT;
+            if (ch_ant!='_')
+                {
+                    t.kind = Token.IDENT;
+                }
         }
         
     }
