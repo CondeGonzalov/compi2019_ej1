@@ -212,6 +212,10 @@ namespace at.jku.ssw.cc
         /* Verifies symbol and reads ahead. */
         static void Check(int expected) //expected viene de la gramatica,  la del laToken que leyó
         {
+            /*if (la==17)
+            {
+                la = 17;
+            }*/
             if (la == expected)
                 Scan();
             else
@@ -697,9 +701,12 @@ namespace at.jku.ssw.cc
                 MessageBoxCon3Preg();
                 //bool encuentraDecl = false;
                 Code.CreateMetadata(curMethod);  //genera il
-                    //Declaraciones  por ahora solo decl de var, luego habria q agregar const y clases
-                    while (la != Token.LBRACE && la != Token.EOF)
+                                                 //Declaraciones  por ahora solo decl de var, luego habria q agregar const y clases
+                Check(Token.LBRACE);//mio
+                Code.Colorear("token");
+                while (la != Token.RBRACE && la != Token.EOF)                                                                               /////////////////////////////////////
                     //void Main()==> int x,i; {val = new Table;....}
+                    {
                     {
                         if (la == Token.IDENT)
                         {
@@ -717,11 +724,12 @@ namespace at.jku.ssw.cc
                             MessageBoxCon3Preg();
                             Code.seleccLaProdEnLaGram(6);
                             VardDecl(Symbol.Kinds.Local, varDecl); // int x,i; en MethodDecl()  con int ya consumido
+
+                            
                         }
                         else
                         {
-                            token = laToken;
-                            Errors.Error("espero una declaracion de variable");
+                            Errors.Error("Se esperaba una declaracion");
                         }
                     }
                     //Termina Vardecl.
